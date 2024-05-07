@@ -41,7 +41,9 @@ At this point you can install ruby.
 ruby-install ruby `cat .ruby-version`
 ```
 
-then finally launch a new terminal and install the JWT gem
+then finally launch a new terminal and install the dependencies
 ```
-gem install jwt
+bundle install
 ```
+
+at this point you can just run `./download.sh` to download the latest ipa.
