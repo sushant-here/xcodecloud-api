@@ -1,0 +1,38 @@
+name: "Download from xcode cloud"
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  downloadArtifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7.8'
+          bundler-cache: true
+          cache-version: 1
+      - shell: bash
+        name: Install JWT gem (not sure why bundler doesnt work)
+        run: |
+          gem install jwt
+      - shell: bash
+        name: Create AuthKey p8 file
+        env:
+          ASC_AUTH_KEY: ${{ secrets.ASC_AUTH_KEY }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+        run: |
+          echo "${ASC_AUTH_KEY}" > "AuthKey_${ASC_KEY_ID}.p8"
+      - shell: bash
+        name: Download Artifact
+        env:
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_WORKFLOW_NAME: ${{ env.ASC_WORKFLOW_NAME }}
+        run: |
+          ./download.sh
+          echo Downloaded tmp/*.zip
