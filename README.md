@@ -7,14 +7,26 @@ Remember - this is a sample! There are some known limitations that are listed be
 
 ... and many more that arent listed! Its upto you to find them!
 
-## Running in github action
+## Create API key
+1. Login to AppStore Connect
+2. Navigate to `Users and Access`
+3. Select `Keys` tab.
+4. Ensure `App Store Connect API` is selected for __Key Type__
+5. Take note of the `Issuer ID` on this page.
+6. Press the `+` icon to create a new API key. Give it any name, ensure it has `Developer` access.
+7. Take note of the newly created `Key Id`
+8. Press the download button to get the `.p8` private key file
+
+## Setup Github
 
 Create the following secrets.
 - ASC_AUTH_KEY - this is the contents of the *.p8 file that Apple provides.
 - ASC_ISSUER_ID - the issuer id unique to your Apple account
 - ASC_KEY_ID - The key id corresponding to the AuthKey_*.p8 that you have downloaded from Apple that
 
-## Ensure you have ruby installed
+At this point you should be able to run in github actions.
+
+## Running locally
 
 When running locally....
 
